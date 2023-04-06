@@ -1,20 +1,57 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+/* eslint-disable camelcase */
+import 'react-native-gesture-handler'
+import { ScreenProvider } from 'responsive-native'
+import { loadAsync } from 'expo-font'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
+import * as SplashScreen from 'expo-splash-screen'
+import {
+  InriaSerif_300Light,
+  InriaSerif_400Regular,
+  InriaSerif_700Bold,
+} from '@expo-google-fonts/inria-serif'
+
+import AppProvider from '@shared/hooks'
+import Routes from '@shared/routes'
+import { useCallback, useEffect, useState } from 'react'
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [appIsReady, setAppIsReady] = useState(false)
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await SplashScreen.preventAutoHideAsync()
+
+        loadAsync({
+          InriaSerif_300Light,
+          InriaSerif_400Regular,
+          InriaSerif_700Bold,
+        })
+        await new Promise((resolve) => setTimeout(resolve, 4000))
+      } catch (e) {
+        console.log(e)
+      } finally {
+        setAppIsReady(true)
+      }
+    }
+
+    prepare()
+  }, [])
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync()
+    }
+  }, [appIsReady])
+
+  if (!appIsReady) return null
+  return (
+    <SafeAreaProvider onLayout={onLayoutRootView}>
+      <ScreenProvider baseFontSize={16}>
+        <AppProvider>
+          <Routes />
+        </AppProvider>
+      </ScreenProvider>
+    </SafeAreaProvider>
+  )
+}
