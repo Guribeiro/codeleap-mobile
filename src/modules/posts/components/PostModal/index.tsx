@@ -54,7 +54,7 @@ interface DispatchProps {
 
 interface OwnProps extends ModalProps {
   onRequestClose(): void
-  post: Post | undefined
+  post?: Post
 }
 
 type PostModalProps = StateProps & DispatchProps & OwnProps

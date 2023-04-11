@@ -1,7 +1,9 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Dispatch, bindActionCreators } from 'redux'
 import { Alert } from 'react-native'
 import { connect } from 'react-redux'
+
+import PostModal from '../PostModal'
 
 import { ApplicationState } from '@shared/store'
 import * as PostsActions from '@shared/store/posts/actions'
@@ -45,7 +47,6 @@ interface DispatchProps {
 
 interface OwnProps {
   post: PostProps
-  onRequestEdit?(): void
 }
 
 type PostItemProps = StateProps & DispatchProps & OwnProps
@@ -53,12 +54,12 @@ type PostItemProps = StateProps & DispatchProps & OwnProps
 const PostItem = ({
   post,
   authentication,
-  onRequestEdit,
   deletePostRequest,
 }: PostItemProps): JSX.Element => {
   const { id, title, content, username, created_datetime_distance } = post
 
   const { likes, addLike, removeLike } = useLikes()
+  const [postModalVisible, setPostModalVisible] = useState(false)
 
   const authenticatedUserOwnPost = useMemo(() => {
     return username === authentication.data.username
@@ -99,7 +100,7 @@ const PostItem = ({
               <Icon name="trash" />
             </Button>
             <LineDivider />
-            <Button onPress={onRequestEdit}>
+            <Button onPress={() => setPostModalVisible(true)}>
               <Icon name="edit" />
             </Button>
           </ActionsContainer>
@@ -117,6 +118,14 @@ const PostItem = ({
           <Icon name="heart" active={active} />
         </Button>
       </Footer>
+
+      <PostModal
+        visible={postModalVisible}
+        animationType="slide"
+        onRequestClose={() => setPostModalVisible(false)}
+        post={post}
+        presentationStyle="pageSheet"
+      />
     </Container>
   )
 }
