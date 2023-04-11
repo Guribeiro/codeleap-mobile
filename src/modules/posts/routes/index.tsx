@@ -4,10 +4,12 @@ import styled from 'styled-components/native'
 
 import Feed from '../screens/Feed'
 import Likes from '../screens/Likes'
+import Profile from '../screens/Profile'
 
 export type RootPostsParamsList = {
   Feed: undefined
   Likes: undefined
+  Profile: undefined
 }
 
 const { Navigator, Screen } = createNativeStackNavigator<RootPostsParamsList>()
@@ -26,12 +28,13 @@ const PostsRoutes = (): JSX.Element => {
         screenOptions={{
           headerShown: false,
           contentStyle: {
-            backgroundColor: theme.palette.colors.primary,
+            backgroundColor: theme.palette.colors.background,
           },
         }}
       >
         <Screen name="Feed" component={Feed} />
         <Screen name="Likes" component={Likes} />
+        <Screen name="Profile" component={Profile} />
       </Navigator>
     </Container>
   )

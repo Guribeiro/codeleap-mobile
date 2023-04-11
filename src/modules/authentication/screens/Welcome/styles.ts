@@ -7,7 +7,7 @@ export const Container = styled.View`
 
 export const Body = styled.View`
   flex: 2;
-  background: ${({ theme }) => theme.palette.colors.primary};
+  background: ${({ theme }) => theme.palette.colors.main};
   justify-content: space-between;
   align-items: center;
   padding: ${({ theme }) => theme.screen.rem(9)}px
@@ -26,7 +26,7 @@ export const LogoImage = styled.Image`
 
 export const Footer = styled.View`
   flex: 1;
-  background: ${({ theme }) => theme.palette.colors.main};
+  background: ${({ theme }) => theme.palette.colors.background};
   padding: 0 ${({ theme }) => theme.screen.rem(1.5)}px;
 `
 
@@ -36,8 +36,8 @@ export const FooterWrapper = styled.View`
 
 export const Title = styled(Text)`
   font-size: ${({ theme }) => theme.screen.rem(1.875, true)}px;
-  text-align: center;
   margin-top: ${({ theme }) => theme.screen.rem(2.5)}px;
+  text-align: center;
 `
 
 export const SigninText = styled(Text)`

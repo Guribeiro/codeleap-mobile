@@ -4,6 +4,7 @@ import { View, ActivityIndicator, RefreshControl } from 'react-native'
 import { Dispatch, bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
+import { Icon } from '@shared/common/components/Icon'
 
 import { formatDistance } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
@@ -31,10 +32,12 @@ import {
   ButtonsContainer,
   HeaderWelcomeText,
   HeaderWelcomeTextEmphasized,
-  Icon,
   PostsList,
+  Notification,
 } from './styles'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { useLikes } from '@shared/hooks/likes'
+import { Text } from '@shared/common/components/Text'
 
 interface StateProps {
   posts: PostsState
@@ -59,27 +62,37 @@ const Feed = ({
   const { theme } = useTheme()
   const { data, loading } = posts
   const { results, next } = data
+  const { likes } = useLikes()
 
   const { navigate } = useNavigation<FeedScreenProps>()
 
   const [postModalVisible, setPostModalVisible] = useState(false)
 
+  const likesCount = useMemo(() => {
+    return likes.length
+  }, [likes])
+
   const resultsFormatted = useMemo(() => {
-    return results?.map((post) => {
-      const now = new Date()
-      const post_created_datetime = new Date(post.created_datetime)
+    return results
+      ?.map((post) => {
+        const now = new Date()
+        const post_created_datetime = new Date(post.created_datetime)
 
-      const created_datetime_distance = formatDistance(
-        post_created_datetime,
-        now,
-        { addSuffix: true, locale: ptBR },
+        const created_datetime_distance = formatDistance(
+          post_created_datetime,
+          now,
+          { addSuffix: true, locale: ptBR },
+        )
+
+        return {
+          ...post,
+          created_datetime_distance,
+        }
+      })
+      .filter(
+        (post, index, self) =>
+          index === self.findIndex((p) => p.id === post.id),
       )
-
-      return {
-        ...post,
-        created_datetime_distance,
-      }
-    })
   }, [results])
 
   const onRequestClose = () => {
@@ -106,12 +119,17 @@ const Feed = ({
           network
         </HeaderWelcomeText>
         <ButtonsContainer>
-          <Touchable>
-            <Icon name="user" />
-          </Touchable>
-          <Spacer horizontal size={8} />
           <Touchable onPress={() => navigate('Likes')}>
             <Icon name="heart" />
+            {likesCount > 0 && (
+              <Notification>
+                <Text>{likesCount}</Text>
+              </Notification>
+            )}
+          </Touchable>
+          <Spacer horizontal size={12} />
+          <Touchable onPress={() => navigate('Profile')}>
+            <Icon name="user" />
           </Touchable>
         </ButtonsContainer>
       </Header>

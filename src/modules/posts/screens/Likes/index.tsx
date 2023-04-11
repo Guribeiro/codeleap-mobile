@@ -20,7 +20,7 @@ const Container = styled(View)`
 
 export const Body = styled.View`
   height: 100%;
-  background: ${({ theme }) => theme.palette.colors.primary};
+  background: ${({ theme }) => theme.palette.colors.background};
   align-items: center;
   padding: ${({ theme }) => theme.screen.rem(0.8)}px;
 `

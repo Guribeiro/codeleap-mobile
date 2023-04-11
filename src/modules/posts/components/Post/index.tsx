@@ -3,6 +3,8 @@ import { Dispatch, bindActionCreators } from 'redux'
 import { Alert } from 'react-native'
 import { connect } from 'react-redux'
 
+import { Icon } from '@shared/common/components/Icon'
+
 import PostModal from '../PostModal'
 
 import { ApplicationState } from '@shared/store'
@@ -18,7 +20,6 @@ import {
   Container,
   Row,
   Header,
-  Icon,
   ActionsContainer,
   LineDivider,
   Title,

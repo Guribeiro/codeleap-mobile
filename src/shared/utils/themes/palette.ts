@@ -15,6 +15,8 @@ export type Palette = {
       light: string
     }
 
+    background: string
+
     texts: {
       strong: string
       medium: string

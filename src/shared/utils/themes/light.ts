@@ -12,10 +12,12 @@ export const light: Palette = {
     secondary: '#29292E',
     main: '#26A7DE',
     texts: {
-      light: '#FFFFFF',
+      light: '#1B1B1F',
       medium: '#7A7A80',
       strong: '#47474D',
     },
+
+    background: '#F4F5F6',
     shapes: {
       light: '#FFFFFF',
       strong: '#F4F5F6',

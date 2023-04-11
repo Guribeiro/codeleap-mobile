@@ -1,10 +1,8 @@
-import { useTheme } from '@shared/hooks/theme'
 import Button from '@shared/common/components/Button'
 
 import { RootSigninParamsList } from '@modules/authentication/routes/signin.routes'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
-// import Logo from '../../assets/logo.svg'
 
 import {
   Container,
@@ -23,7 +21,6 @@ type WelcomeScreenProps = NativeStackNavigationProp<
 >
 
 const Welcome = (): JSX.Element => {
-  const { theme } = useTheme()
   const { navigate } = useNavigation<WelcomeScreenProps>()
   return (
     <Container>
@@ -41,12 +38,7 @@ const Welcome = (): JSX.Element => {
       </Body>
       <Footer>
         <FooterWrapper>
-          <Button
-            onPress={() => navigate('Signin')}
-            backgroundColor={theme.palette.colors.primary}
-          >
-            Log in
-          </Button>
+          <Button onPress={() => navigate('Signin')}>Log in</Button>
         </FooterWrapper>
       </Footer>
     </Container>

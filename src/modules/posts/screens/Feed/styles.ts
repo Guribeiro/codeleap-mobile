@@ -1,6 +1,5 @@
 import styled from 'styled-components/native'
 import { View, FlatListProps, FlatList } from 'react-native'
-import Feather from '@expo/vector-icons/Feather'
 import { RectButton } from 'react-native-gesture-handler'
 import Constants from 'expo-constants'
 
@@ -11,6 +10,21 @@ const { statusBarHeight } = Constants
 
 export const Container = styled(View)`
   flex: 1;
+`
+
+export const Notification = styled(View)`
+  height: ${({ theme }) => theme.screen.rem(1)}px;
+  width: ${({ theme }) => theme.screen.rem(1)}px;
+  border-radius: ${({ theme }) => theme.screen.rem(0.5)}px;
+
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: -10px;
+  left: 10px;
+
+  background: ${({ theme }) => theme.palette.colors.red};
 `
 
 export const NewPostButton = styled(RectButton)`
@@ -27,7 +41,7 @@ export const NewPostButton = styled(RectButton)`
 
 export const Body = styled.View`
   height: 100%;
-  background: ${({ theme }) => theme.palette.colors.primary};
+  background: ${({ theme }) => theme.palette.colors.background};
   align-items: center;
   padding: ${({ theme }) => theme.screen.rem(0.8)}px;
 `
@@ -39,6 +53,8 @@ export const Header = styled(View)`
 
   flex-direction: row;
   justify-content: space-between;
+
+  background-color: ${({ theme }) => theme.palette.colors.main};
 `
 
 export const HeaderWelcomeText = styled(Text)`
@@ -46,12 +62,7 @@ export const HeaderWelcomeText = styled(Text)`
 `
 
 export const HeaderWelcomeTextEmphasized = styled(HeaderWelcomeText)`
-  color: ${({ theme }) => theme.palette.colors.main};
-`
-
-export const Icon = styled(Feather)`
-  color: ${({ theme }) => theme.palette.colors.white};
-  font-size: ${({ theme }) => theme.screen.rem(1.4, true)}px;
+  color: ${({ theme }) => theme.palette.colors.texts.strong};
 `
 
 export const ButtonsContainer = styled.View`

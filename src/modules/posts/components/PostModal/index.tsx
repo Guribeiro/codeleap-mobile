@@ -96,6 +96,11 @@ const PostModal = ({
     exact: true,
   })
 
+  const handleClose = useCallback(() => {
+    reset(defaultValues)
+    onRequestClose()
+  }, [reset, onRequestClose])
+
   const onSubmit = useCallback(
     ({ title, content }: CreatePostFormData) => {
       if (post) {
@@ -104,7 +109,7 @@ const PostModal = ({
           title,
           content,
         })
-        onRequestClose()
+        handleClose()
         return
       }
       addPostRequest({
@@ -113,9 +118,9 @@ const PostModal = ({
         username,
       })
 
-      onRequestClose()
+      handleClose()
     },
-    [authentication, addPostRequest, onRequestClose, post],
+    [authentication, addPostRequest, post],
   )
 
   useEffect(() => {
@@ -149,10 +154,10 @@ const PostModal = ({
   }, [post, reset])
 
   return (
-    <Container visible={visible} onRequestClose={onRequestClose} {...props}>
+    <Container visible={visible} onRequestClose={handleClose} {...props}>
       <Content>
         <Header>
-          <NativeButton title="Cancel" onPress={onRequestClose} />
+          <NativeButton title="Cancel" onPress={handleClose} />
           <CreatePostButton
             disabled={disabled}
             onPress={handleSubmit(onSubmit)}

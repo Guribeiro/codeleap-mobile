@@ -16,6 +16,7 @@ export const dark: Palette = {
       medium: '#7A7A80',
       strong: '#47474D',
     },
+    background: '#1B1B1F',
     shapes: {
       light: '#FFFFFF',
       strong: '#F4F5F6',

@@ -26,7 +26,7 @@ const SigninRoutes = (): JSX.Element => {
       screenOptions={{
         headerShown: false,
         contentStyle: {
-          backgroundColor: theme.palette.colors.primary,
+          backgroundColor: theme.palette.colors.background,
         },
       }}
     >
