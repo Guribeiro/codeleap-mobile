@@ -44,7 +44,6 @@ const reducer: Reducer<AuthenticationState, AuthenticationAction> = (
       return { ...state, loading: false, error: true }
     case LOGOUT_REQUEST_SUCCESS:
       return { loading: false, error: false, data: {} as Authentication }
-
     default:
       return state
   }

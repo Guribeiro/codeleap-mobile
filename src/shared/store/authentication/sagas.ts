@@ -10,7 +10,7 @@ export interface ErrorResponse {
   message: string
 }
 
-const AUTHENTICATION_STORAGE_KEY = '@authentication/username'
+export const AUTHENTICATION_STORAGE_KEY = '@authentication/username'
 
 interface LoginAction {
   type: string
