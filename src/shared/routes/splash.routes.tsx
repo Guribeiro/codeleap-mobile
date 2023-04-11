@@ -1,9 +1,16 @@
+import { bindActionCreators, Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import AuthenticationRoutes from '@modules/authentication/routes'
+import PostsRoutes from '@modules/posts/routes'
+
+import { ApplicationState } from '@shared/store'
+
+import * as AuthenticationActions from '@shared/store/authentication/actions'
 
 import { useTheme } from '@shared/hooks/theme'
 import Splash from '@shared/common/components/Splash'
-import AuthenticationRoutes from '@modules/authentication/routes'
-import { useAuthentication } from '@modules/authentication/hooks/authentication'
+import { Authentication } from '@shared/store/authentication/types'
 
 export type RootSplashParamsList = {
   Splash: undefined
@@ -12,9 +19,20 @@ export type RootSplashParamsList = {
 
 const { Navigator, Screen } = createNativeStackNavigator<RootSplashParamsList>()
 
-const SplashRoutes = (): JSX.Element => {
-  const { username } = useAuthentication()
+interface StateProps {
+  authentication: Authentication
+}
+
+interface DispatchProps {}
+
+interface OwnProps {}
+
+type SplashRoutesProps = StateProps & DispatchProps & OwnProps
+
+const SplashRoutes = ({ authentication }: SplashRoutesProps): JSX.Element => {
   const { theme } = useTheme()
+
+  const { username } = authentication
 
   return (
     <Navigator
@@ -28,13 +46,19 @@ const SplashRoutes = (): JSX.Element => {
     >
       {!!username && <Screen name="Splash" component={Splash} />}
 
-      {/* <Screen
+      <Screen
         name="App"
-        component={username ? LocationRoutes : AuthenticationRoutes}
-      /> */}
-      <Screen name="App" component={AuthenticationRoutes} />
+        component={username ? PostsRoutes : AuthenticationRoutes}
+      />
     </Navigator>
   )
 }
 
-export default SplashRoutes
+const mapStateToProps = ({ authentication }: ApplicationState) => ({
+  authentication: authentication.data,
+})
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(AuthenticationActions, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(SplashRoutes)

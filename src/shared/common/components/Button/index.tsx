@@ -1,33 +1,31 @@
-import styled from 'styled-components/native'
-import {
-  TouchableOpacityProps,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native'
+import { TouchableOpacityProps } from 'react-native'
+import Loading from '../Loading'
 
-import { Text } from '../Text'
+import { Container, ButtonText } from './styles'
 
-const Container = styled.View`
-  background: ${({ theme }) => theme.palette.colors.secondary};
-  border-radius: ${({ theme }) => theme.screen.rem(0.5)}px;
-`
+export type Type = 'common' | 'transparent'
 
-const Touchable = styled(TouchableOpacity)`
-  padding: ${({ theme }) => theme.screen.rem(1)}px;
-  align-items: center;
-`
-
-type ButtonProps = {
-  children: string
+interface ButtonProps extends TouchableOpacityProps {
+  backgroundColor?: string
   loading?: boolean
-} & TouchableOpacityProps
+}
 
-const Button = ({ children, loading, ...rest }: ButtonProps): JSX.Element => {
+const Button = ({
+  onPress,
+  loading,
+  children,
+  backgroundColor,
+  disabled,
+  ...rest
+}: ButtonProps): JSX.Element => {
   return (
-    <Container>
-      <Touchable {...rest}>
-        {loading ? <ActivityIndicator /> : <Text>{children}</Text>}
-      </Touchable>
+    <Container
+      onPress={onPress}
+      backgroundColor={backgroundColor}
+      disabled={disabled}
+      {...rest}
+    >
+      {loading ? <Loading /> : <ButtonText>{children}</ButtonText>}
     </Container>
   )
 }

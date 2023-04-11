@@ -8,6 +8,7 @@ export type Palette = {
   colors: {
     primary: string
     secondary: string
+    main: string
 
     shapes: {
       strong: string

@@ -10,6 +10,7 @@ export const dark: Palette = {
   colors: {
     primary: '#1B1B1F',
     secondary: '#87403A',
+    main: '#26A7DE',
     texts: {
       light: '#FFFFFF',
       medium: '#7A7A80',

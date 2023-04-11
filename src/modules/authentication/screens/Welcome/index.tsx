@@ -1,37 +1,54 @@
-import { useNavigation } from '@react-navigation/native'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootSigninParamsList } from '../../routes/signin.routes'
-
+import { useTheme } from '@shared/hooks/theme'
 import Button from '@shared/common/components/Button'
-import Logo from '@shared/common/components/Logo'
+
+import { RootSigninParamsList } from '@modules/authentication/routes/signin.routes'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { useNavigation } from '@react-navigation/native'
+// import Logo from '../../assets/logo.svg'
 
 import {
   Container,
+  Body,
+  LogoImage,
   Content,
-  WelcomeText,
-  WelcomeTextContainer,
+  Title,
+  SigninText,
   Footer,
-  ButtonContainer,
+  FooterWrapper,
 } from './styles'
 
 type WelcomeScreenProps = NativeStackNavigationProp<
   RootSigninParamsList,
-  'Welcome'
+  'Signin'
 >
 
 const Welcome = (): JSX.Element => {
+  const { theme } = useTheme()
   const { navigate } = useNavigation<WelcomeScreenProps>()
   return (
     <Container>
-      <Content>
-        <WelcomeTextContainer>
-          <WelcomeText>Codeleap</WelcomeText>
-        </WelcomeTextContainer>
+      <Body>
+        <Content>
+          <LogoImage
+            source={{
+              uri: 'https://codeleap.co.uk/static/838fbf40bc335c2ffd2ea5ee19ed3baa/f6c84/codeleap_logo_white.webp',
+            }}
+          />
 
-        <ButtonContainer>
-          <Button onPress={() => navigate('Signin')}>get started</Button>
-        </ButtonContainer>
-      </Content>
+          <Title>Share what is on your mind</Title>
+        </Content>
+        <SigninText>Let people know what you are thinking about</SigninText>
+      </Body>
+      <Footer>
+        <FooterWrapper>
+          <Button
+            onPress={() => navigate('Signin')}
+            backgroundColor={theme.palette.colors.primary}
+          >
+            Log in
+          </Button>
+        </FooterWrapper>
+      </Footer>
     </Container>
   )
 }

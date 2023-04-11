@@ -26,9 +26,8 @@ const SigninRoutes = (): JSX.Element => {
       screenOptions={{
         headerShown: false,
         contentStyle: {
-          backgroundColor: theme.palette.colors.shapes.strong,
+          backgroundColor: theme.palette.colors.primary,
         },
-        presentation: 'containedModal',
       }}
     >
       <Screen name="Welcome" component={Welcome} />

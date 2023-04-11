@@ -1,8 +1,8 @@
-import React, { ReactNode } from 'react';
-import { ScrollView, ScrollViewProps } from 'react-native';
+import React, { ReactNode } from 'react'
+import { ScrollView, ScrollViewProps } from 'react-native'
 
 interface ScrollProps extends ScrollViewProps {
-  children: ReactNode;
+  children: ReactNode
 }
 
 const Scroll = ({ children, ...rest }: ScrollProps): JSX.Element => (
@@ -13,6 +13,6 @@ const Scroll = ({ children, ...rest }: ScrollProps): JSX.Element => (
   >
     {children}
   </ScrollView>
-);
+)
 
-export default Scroll;
+export default Scroll

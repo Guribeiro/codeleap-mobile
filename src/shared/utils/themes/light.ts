@@ -10,6 +10,7 @@ export const light: Palette = {
   colors: {
     primary: '#1B1B1F',
     secondary: '#29292E',
+    main: '#26A7DE',
     texts: {
       light: '#FFFFFF',
       medium: '#7A7A80',

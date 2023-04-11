@@ -1,6 +1,9 @@
 /* eslint-disable camelcase */
 import 'react-native-gesture-handler'
+import { useCallback, useEffect, useState } from 'react'
+import Toast from 'react-native-toast-message'
 import { ScreenProvider } from 'responsive-native'
+import { Provider } from 'react-redux'
 import { loadAsync } from 'expo-font'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import * as SplashScreen from 'expo-splash-screen'
@@ -12,7 +15,7 @@ import {
 
 import AppProvider from '@shared/hooks'
 import Routes from '@shared/routes'
-import { useCallback, useEffect, useState } from 'react'
+import store from '@shared/store'
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false)
@@ -48,9 +51,12 @@ export default function App() {
   return (
     <SafeAreaProvider onLayout={onLayoutRootView}>
       <ScreenProvider baseFontSize={16}>
-        <AppProvider>
-          <Routes />
-        </AppProvider>
+        <Provider store={store}>
+          <AppProvider>
+            <Routes />
+            <Toast />
+          </AppProvider>
+        </Provider>
       </ScreenProvider>
     </SafeAreaProvider>
   )

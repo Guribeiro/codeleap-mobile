@@ -1,32 +1,36 @@
 import styled from 'styled-components/native'
-import { Text } from '../../../../shared/common/components/Text'
+import { Text } from '@shared/common/components/Text'
 
 export const Container = styled.View`
-  width: 100%;
   flex: 1;
-  align-items: center;
+`
+
+export const Body = styled.View`
+  height: 100%;
   background: ${({ theme }) => theme.palette.colors.primary};
+  align-items: center;
+  padding: ${({ theme }) => theme.screen.rem(1.5)}px;
 `
 
 export const Content = styled.View`
-  flex: 1;
-  padding: ${({ theme }) => theme.screen.rem(2)}px;
-
-  justify-content: space-between;
+  align-items: center;
 `
 
-export const WelcomeTextContainer = styled.View`
-  margin-bottom: ${({ theme }) => theme.screen.rem(1)}px;
+export const Footer = styled.View`
+  width: 100%;
+  margin-top: ${({ theme }) => theme.screen.rem(6)}px;
 `
 
-export const WelcomeText = styled(Text)`
-  font-size: ${({ theme }) => theme.screen.rem(2, true)}px;
+export const TitleContainer = styled.View`
+  margin: ${({ theme }) => theme.screen.rem(2)}px 0;
 `
 
-export const EmphasizedText = styled(Text)`
-  color: ${({ theme }) => theme.palette.colors.secondary};
+export const Title = styled(Text)`
+  font-size: ${({ theme }) => theme.screen.rem(1.875, true)}px;
+  text-align: center;
+  margin-top: ${({ theme }) => theme.screen.rem(2.5)}px;
 `
 
-export const ButtonContainer = styled.View`
-  margin-top: ${({ theme }) => theme.screen.rem(4)}px;
+export const Form = styled.View`
+  width: 100%;
 `
