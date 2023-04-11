@@ -21,3 +21,9 @@ export {
   deletePostRequestFailure,
   deletePostRequestSuccess,
 } from './deletePost'
+
+export {
+  fetchMorePostsRequest,
+  fetchMorePostsRequestFailure,
+  fetchMorePostsRequestSuccess,
+} from './fetchMorePosts'

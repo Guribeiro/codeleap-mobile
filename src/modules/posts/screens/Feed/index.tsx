@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { View, ActivityIndicator, RefreshControl } from 'react-native'
 import { Dispatch, bindActionCreators } from 'redux'
@@ -10,7 +10,10 @@ import { ptBR } from 'date-fns/locale'
 
 import { ApplicationState } from '@shared/store'
 import * as PostsActions from '@shared/store/posts/actions'
-import { Post, PostsState } from '@shared/store/posts/types'
+import {
+  FetchMorePostsRequestPayload,
+  PostsState,
+} from '@shared/store/posts/types'
 
 import Touchable from '@shared/common/components/Touchable'
 import Spacer from '@shared/common/components/Spacer'
@@ -39,6 +42,7 @@ interface StateProps {
 
 interface DispatchProps {
   getPostsRequest(): void
+  fetchMorePostsRequest(data: FetchMorePostsRequestPayload): void
 }
 
 interface OwnProps {}
@@ -47,15 +51,18 @@ type FeedProps = StateProps & DispatchProps & OwnProps
 
 type FeedScreenProps = NativeStackNavigationProp<RootPostsParamsList, 'Feed'>
 
-const Feed = ({ posts, getPostsRequest }: FeedProps): JSX.Element => {
+const Feed = ({
+  posts,
+  getPostsRequest,
+  fetchMorePostsRequest,
+}: FeedProps): JSX.Element => {
   const { theme } = useTheme()
   const { data, loading } = posts
-  const { results } = data
+  const { results, next } = data
 
   const { navigate } = useNavigation<FeedScreenProps>()
 
   const [postModalVisible, setPostModalVisible] = useState(false)
-  const [selectedPost, setSelectedPost] = useState<Post | undefined>()
 
   const resultsFormatted = useMemo(() => {
     return results?.map((post) => {
@@ -75,14 +82,17 @@ const Feed = ({ posts, getPostsRequest }: FeedProps): JSX.Element => {
     })
   }, [results])
 
-  const onRequestEdit = (post: Post) => {
-    setSelectedPost(post)
-    setPostModalVisible(true)
-  }
   const onRequestClose = () => {
-    setSelectedPost(undefined)
     setPostModalVisible(false)
   }
+
+  const onEndReached = useCallback(() => {
+    if (!next) return
+
+    fetchMorePostsRequest({
+      next,
+    })
+  }, [next])
 
   useEffect(() => {
     getPostsRequest()
@@ -109,12 +119,11 @@ const Feed = ({ posts, getPostsRequest }: FeedProps): JSX.Element => {
       <Body>
         <PostsList
           data={resultsFormatted}
-          renderItem={({ item }) => (
-            <PostItem post={item} onRequestEdit={() => onRequestEdit(item)} />
-          )}
+          renderItem={({ item }) => <PostItem post={item} />}
           keyExtractor={(item) => String(item.id)}
           onEndReachedThreshold={0.7}
           scrollEventThrottle={16}
+          onEndReached={onEndReached}
           refreshControl={
             <RefreshControl
               refreshing={loading}
@@ -127,7 +136,7 @@ const Feed = ({ posts, getPostsRequest }: FeedProps): JSX.Element => {
             loading ? (
               <ActivityIndicator />
             ) : (
-              <View style={{ height: theme.screen.rem(4) }} />
+              <View style={{ height: theme.screen.rem(8) }} />
             )
           }
         />
@@ -136,7 +145,6 @@ const Feed = ({ posts, getPostsRequest }: FeedProps): JSX.Element => {
         visible={postModalVisible}
         animationType="slide"
         onRequestClose={() => onRequestClose()}
-        post={selectedPost}
         presentationStyle="pageSheet"
       />
       <NewPostButton onPress={() => setPostModalVisible(true)}>

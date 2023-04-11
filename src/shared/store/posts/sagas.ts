@@ -8,6 +8,7 @@ import {
   AddPostRequestPayload,
   UpdatePostRequestPayload,
   DeletePostRequestPayload,
+  FetchMorePostsRequestPayload,
   Post,
 } from './types'
 
@@ -20,6 +21,8 @@ import {
   updatePostRequestSuccess,
   deletePostRequestFailure,
   deletePostRequestSuccess,
+  fetchMorePostsRequestFailure,
+  fetchMorePostsRequestSuccess,
 } from './actions'
 import { AxiosResponse } from 'axios'
 
@@ -42,8 +45,18 @@ interface DeletePostAction {
   payload: DeletePostRequestPayload
 }
 
+interface FetchMorePostsAction {
+  type: string
+  payload: FetchMorePostsRequestPayload
+}
+
 async function apiGetPosts() {
   return api.get('/careers')
+}
+
+async function apiFetchMorePosts({ next }: FetchMorePostsRequestPayload) {
+  const [, params] = next.split('?')
+  return api.get(`/careers/?${params}`)
 }
 
 async function apiAddPost({ username, content, title }: AddPostRequestPayload) {
@@ -82,12 +95,28 @@ export function* getPosts() {
     yield put(getPostsRequestFailure())
   }
 }
+export function* fetchMorePosts({ payload }: FetchMorePostsAction) {
+  try {
+    const { data }: AxiosResponse<GetPostsQueryResponse> = yield call(
+      apiFetchMorePosts,
+      payload,
+    )
+
+    yield put(fetchMorePostsRequestSuccess(data))
+  } catch (error) {
+    const message = errorHandler(error)
+    Toast.show({
+      type: 'error',
+      text1: 'Opss! somenthing went wrong',
+      text2: message,
+    })
+    yield put(fetchMorePostsRequestFailure())
+  }
+}
 
 export function* addPost({ payload }: AddPostAction) {
   try {
     const { data }: AxiosResponse<Post> = yield call(apiAddPost, payload)
-
-    console.log({ data })
 
     yield put(addPostRequestSuccess(data))
 

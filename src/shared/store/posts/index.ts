@@ -23,6 +23,10 @@ const {
   DELETE_POST_REQUEST,
   DELETE_POST_REQUEST_FAILURE,
   DELETE_POST_REQUEST_SUCCESS,
+
+  FETCH_MORE_POST_REQUEST,
+  FETCH_MORE_POST_REQUEST_FAILURE,
+  FETCH_MORE_POST_REQUEST_SUCCESS,
 } = PostsTypes
 
 const INITIAL_STATE: PostsState = {
@@ -46,6 +50,20 @@ const reducer: Reducer<PostsState, PostsAction> = (
         data: action.payload.data,
       }
     case GET_POSTS_REQUEST_FAILURE:
+      return { ...state, loading: false, error: true }
+    case FETCH_MORE_POST_REQUEST:
+      return { ...state, loading: true }
+    case FETCH_MORE_POST_REQUEST_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        error: false,
+        data: {
+          ...action.payload.data,
+          results: [...state.data.results, ...action.payload.data.results],
+        },
+      }
+    case FETCH_MORE_POST_REQUEST_FAILURE:
       return { ...state, loading: false, error: true }
     case ADD_POST_REQUEST:
       return { ...state, loading: true }

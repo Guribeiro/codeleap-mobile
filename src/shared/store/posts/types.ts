@@ -15,6 +15,10 @@ export enum PostsTypes {
   DELETE_POST_REQUEST = `DELETE_POST_REQUEST`,
   DELETE_POST_REQUEST_SUCCESS = `DELETE_POST_REQUEST_SUCCESS`,
   DELETE_POST_REQUEST_FAILURE = `DELETE_POST_REQUEST_FAILURE`,
+
+  FETCH_MORE_POST_REQUEST = `FETCH_MORE_POST_REQUEST`,
+  FETCH_MORE_POST_REQUEST_SUCCESS = `FETCH_MORE_POST_REQUEST_SUCCESS`,
+  FETCH_MORE_POST_REQUEST_FAILURE = `FETCH_MORE_POST_REQUEST_FAILURE`,
 }
 
 export interface PostsAction {
@@ -50,8 +54,12 @@ export interface UpdatePostRequestPayload {
   title: string
   content: string
 }
+
 export interface DeletePostRequestPayload {
   id: number
+}
+export interface FetchMorePostsRequestPayload {
+  next: string
 }
 
 export interface PostsState {
