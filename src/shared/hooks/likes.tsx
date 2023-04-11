@@ -39,22 +39,6 @@ const LikeProvider = ({ children }: LikesProviderProps): JSX.Element => {
   }
 
   useEffect(() => {
-    async function updateLikesStoraged() {
-      try {
-        await AsyncStorage.setItem(LIKES_STORAGE_KEY, JSON.stringify(likes))
-      } catch (error) {
-        const { message } = error as ErrorResponse
-        Toast.show({
-          type: 'error',
-          text1: 'Opss! somenthing went wrong',
-          text2: message,
-        })
-      }
-    }
-    updateLikesStoraged()
-  }, [likes])
-
-  useEffect(() => {
     async function loadLikesStoraged() {
       try {
         const storagedLikes = await AsyncStorage.getItem(LIKES_STORAGE_KEY)
@@ -73,6 +57,22 @@ const LikeProvider = ({ children }: LikesProviderProps): JSX.Element => {
     }
     loadLikesStoraged()
   }, [])
+
+  useEffect(() => {
+    async function updateLikesStoraged() {
+      try {
+        await AsyncStorage.setItem(LIKES_STORAGE_KEY, JSON.stringify(likes))
+      } catch (error) {
+        const { message } = error as ErrorResponse
+        Toast.show({
+          type: 'error',
+          text1: 'Opss! somenthing went wrong',
+          text2: message,
+        })
+      }
+    }
+    updateLikesStoraged()
+  }, [likes])
 
   const value = useMemo(() => {
     return {
