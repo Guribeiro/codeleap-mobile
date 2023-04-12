@@ -15,7 +15,7 @@ export interface ErrorResponse {
   message: string
 }
 
-export const AUTHENTICATION_STORAGE_KEY = '@authentication/username'
+export const AUTHENTICATION_STORAGE_KEY = '@codeleap/authentication/username'
 
 interface LoginAction {
   type: string

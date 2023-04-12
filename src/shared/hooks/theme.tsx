@@ -59,7 +59,7 @@ interface Props {
 }
 
 const ThemeProvider = ({ children }: Props): JSX.Element => {
-  const THEME_STORAGE_KEY = '@poto/theme'
+  const THEME_STORAGE_KEY = '@codeleap/theme'
 
   const [theme, setTheme] = useState<Theme>(dark)
   const { breakpoint, padding, baseFontSize, fontScaleFactor } = useScreen()
