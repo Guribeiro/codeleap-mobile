@@ -37,6 +37,7 @@ import {
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useLikes } from '@shared/hooks/likes'
 import { Text } from '@shared/common/components/Text'
+import ListEmptyComponent from '@shared/common/components/ListEmptyComponent'
 
 interface StateProps {
   posts: PostsState
@@ -149,6 +150,7 @@ const Feed = ({
               colors={[theme.palette.colors.main]}
             />
           }
+          ListEmptyComponent={<ListEmptyComponent />}
           ListFooterComponent={
             loading ? (
               <ActivityIndicator />
