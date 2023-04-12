@@ -1,6 +1,5 @@
 import { View } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
-import styled from 'styled-components/native'
 import Header from '@shared/common/components/Header'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootPostsParamsList } from '@modules/posts/routes'
@@ -14,16 +13,7 @@ import { useTheme } from '@shared/hooks/theme'
 import { formatDistance } from 'date-fns'
 import { useMemo } from 'react'
 
-const Container = styled(View)`
-  flex: 1;
-`
-
-export const Body = styled.View`
-  height: 100%;
-  background: ${({ theme }) => theme.palette.colors.background};
-  align-items: center;
-  padding: ${({ theme }) => theme.screen.rem(0.8)}px;
-`
+import { Container, Body } from './styles'
 
 type LikesScreenProps = NativeStackNavigationProp<RootPostsParamsList, 'Likes'>
 

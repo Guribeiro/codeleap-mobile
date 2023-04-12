@@ -1,61 +1,23 @@
-import { View, Image, Alert, Switch } from 'react-native'
+import { useCallback } from 'react'
+import { Alert, Switch } from 'react-native'
+import { connect } from 'react-redux'
+import { Dispatch, bindActionCreators } from 'redux'
 import { useNavigation } from '@react-navigation/native'
-import styled from 'styled-components/native'
-import Header from '@shared/common/components/Header'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+
 import { RootPostsParamsList } from '@modules/posts/routes'
 
-import * as AuthenticationActions from '@shared/store/authentication/actions'
-import { lighten } from 'polished'
-import { Text } from '@shared/common/components/Text'
-import { connect } from 'react-redux'
 import { ApplicationState } from '@shared/store'
-import { Dispatch, bindActionCreators } from 'redux'
+import * as AuthenticationActions from '@shared/store/authentication/actions'
 import { AuthenticationState } from '@shared/store/authentication/types'
-import Spacer from '@shared/common/components/Spacer'
-import { Feather } from '@expo/vector-icons'
-import Touchable from '@shared/common/components/Touchable'
-import { useCallback } from 'react'
 import { useTheme } from '@shared/hooks/theme'
+import Spacer from '@shared/common/components/Spacer'
+import Header from '@shared/common/components/Header'
+import { Text } from '@shared/common/components/Text'
+import { Icon } from '@shared/common/components/Icon'
+import Touchable from '@shared/common/components/Touchable'
 
-export const Icon = styled(Feather)`
-  color: ${({ theme }) => theme.palette.colors.red};
-  font-size: ${({ theme }) => theme.screen.rem(1.4, true)}px;
-`
-
-const Container = styled(View)`
-  flex: 1;
-`
-
-export const UserAvatar = styled(Image)`
-  width: ${({ theme }) => theme.screen.rem(7)}px;
-  height: ${({ theme }) => theme.screen.rem(7)}px;
-  border-radius: ${({ theme }) => theme.screen.rem(4.5)}px;
-
-  border-width: 2px;
-  border-style: solid;
-  border-color: ${({ theme }) => lighten(0.4, theme.palette.colors.main)};
-
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-`
-
-const Row = styled(View)`
-  align-items: center;
-`
-
-const SwitchContainer = styled(View)`
-  width: 100%;
-  flex-direction: row-reverse;
-`
-
-export const Body = styled.View`
-  flex: 1;
-  background: ${({ theme }) => theme.palette.colors.background};
-  align-items: center;
-  justify-content: space-between;
-  padding: ${({ theme }) => theme.screen.rem(2)}px
-    ${({ theme }) => theme.screen.rem(0.8)}px;
-`
+import { Container, Body, SwitchContainer, Row, UserAvatar } from './styles'
 
 type LikesScreenProps = NativeStackNavigationProp<RootPostsParamsList, 'Likes'>
 
@@ -97,8 +59,6 @@ const Profile = ({
 
     changeTheme({ themeName: newTheme })
   }
-
-  console.log(theme.palette.colors)
 
   return (
     <Container>

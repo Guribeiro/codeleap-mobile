@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { useTheme } from '@shared/hooks/theme'
 import styled from 'styled-components/native'
+import { useTheme } from '@shared/hooks/theme'
 
 import Feed from '../screens/Feed'
 import Likes from '../screens/Likes'
