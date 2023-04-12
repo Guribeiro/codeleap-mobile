@@ -2,11 +2,20 @@
   <img src="https://codeleap.co.uk/static/838fbf40bc335c2ffd2ea5ee19ed3baa/f6c84/codeleap_logo_white.webp" alt="Codeleap Mobile" />
 
   &#xa0;
-
-
 </div>
 
 <h1 align="center">Codeleap network</h1>
+
+<br/>
+
+<p align="center">
+  <img src="./.github/welcome.jpg" width='200px' alt="Welcome screen" />
+  <img src="./.github/signin.jpg" width='200px' alt="Signin screen" />
+  <img src="./.github/feed.jpg" width='200px' alt="Welcome screen" />
+  <img src="./.github/create-post.jpg" width='200px' alt="Welcome screen" />
+  <img src="./.github/profile.jpg" width='200px' alt="Welcome screen" />
+</p>
+
  
 <br/>
 
