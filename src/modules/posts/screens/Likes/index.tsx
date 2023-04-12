@@ -3,7 +3,6 @@ import { useNavigation } from '@react-navigation/native'
 import Header from '@shared/common/components/Header'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootPostsParamsList } from '@modules/posts/routes'
-import { ptBR } from 'date-fns/locale'
 
 import PostItem from '@modules/posts/components/Post'
 
@@ -31,7 +30,7 @@ const Likes = (): JSX.Element => {
       const created_datetime_distance = formatDistance(
         post_created_datetime,
         now,
-        { addSuffix: true, locale: ptBR },
+        { addSuffix: true },
       )
 
       return {

@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native'
 import { Icon } from '@shared/common/components/Icon'
 
 import { formatDistance } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
 
 import { ApplicationState } from '@shared/store'
 import * as PostsActions from '@shared/store/posts/actions'
@@ -81,7 +80,7 @@ const Feed = ({
         const created_datetime_distance = formatDistance(
           post_created_datetime,
           now,
-          { addSuffix: true, locale: ptBR },
+          { addSuffix: true },
         )
 
         return {
