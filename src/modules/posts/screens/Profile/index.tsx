@@ -77,7 +77,7 @@ const Profile = ({
         </Row>
 
         <Row>
-          <Touchable onPress={handleLogout}>
+          <Touchable style={{ padding: 16 }} onPress={handleLogout}>
             <Icon size={16} name="power" />
           </Touchable>
         </Row>
