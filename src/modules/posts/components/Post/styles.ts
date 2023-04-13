@@ -2,12 +2,13 @@ import { View, TouchableOpacity } from 'react-native'
 import styled, { css } from 'styled-components/native'
 import Feather from '@expo/vector-icons/Feather'
 import { Text } from '@shared/common/components/Text'
+import Animated from 'react-native-reanimated'
 
 interface IconProps {
   active?: boolean
 }
 
-export const Container = styled(View)`
+export const Container = styled(Animated.View)`
   border: 0.5px solid #cccc;
   margin: ${({ theme }) => theme.screen.rem(0.4)}px 0;
 `

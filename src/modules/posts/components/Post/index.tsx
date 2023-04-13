@@ -2,6 +2,7 @@ import { useCallback, useMemo, useState } from 'react'
 import { Dispatch, bindActionCreators } from 'redux'
 import { Alert } from 'react-native'
 import { connect } from 'react-redux'
+import { FadeInLeft, FadeOutRight, Layout } from 'react-native-reanimated'
 
 import { Icon } from '@shared/common/components/Icon'
 
@@ -92,7 +93,7 @@ const PostItem = ({
   }, [post, deletePostRequest])
 
   return (
-    <Container>
+    <Container layout={Layout} entering={FadeInLeft} exiting={FadeOutRight}>
       <Header>
         <Title>{title}</Title>
         {authenticatedUserOwnPost && (
