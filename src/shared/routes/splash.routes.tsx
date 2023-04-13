@@ -72,7 +72,7 @@ const SplashRoutes = ({
         },
       }}
     >
-      <Screen name="Splash" component={Splash} />
+      {!username && <Screen name="Splash" component={Splash} />}
 
       <Screen
         name="App"
