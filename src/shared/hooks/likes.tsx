@@ -12,6 +12,12 @@ import {
 } from 'react'
 import { ErrorResponse } from '@shared/store/authentication/sagas'
 import Toast from 'react-native-toast-message'
+import { Dispatch, bindActionCreators } from 'redux'
+import { ApplicationState } from '@shared/store'
+
+import * as AuthenticationActions from '@shared/store/authentication/actions'
+import { connect } from 'react-redux'
+import { AuthenticationState } from '@shared/store/authentication/types'
 
 interface LikesContextData {
   likes: Post[]
@@ -21,14 +27,26 @@ interface LikesContextData {
 
 const LikesContext = createContext<LikesContextData>({} as LikesContextData)
 
-interface LikesProviderProps {
+interface StateProps {
+  authentication: AuthenticationState
+}
+
+interface DispatchProps {}
+
+interface OwnProps {
   children: ReactNode
 }
 
+type LikesProviderProps = StateProps & DispatchProps & OwnProps
+
 const LIKES_STORAGE_KEY = '@codeleap/likes'
 
-const LikeProvider = ({ children }: LikesProviderProps): JSX.Element => {
+const LikeProvider = ({
+  children,
+  authentication,
+}: LikesProviderProps): JSX.Element => {
   const [likes, setLikes] = useState<Post[]>([])
+  const { username } = authentication.data
 
   const addLike = (post: Post) => {
     setLikes((prev) => [...prev, post])
@@ -41,7 +59,9 @@ const LikeProvider = ({ children }: LikesProviderProps): JSX.Element => {
   useEffect(() => {
     async function loadLikesStoraged() {
       try {
-        const storagedLikes = await AsyncStorage.getItem(LIKES_STORAGE_KEY)
+        const storagedLikes = await AsyncStorage.getItem(
+          `${LIKES_STORAGE_KEY}-${username}`,
+        )
 
         if (storagedLikes) {
           setLikes(JSON.parse(storagedLikes))
@@ -56,12 +76,15 @@ const LikeProvider = ({ children }: LikesProviderProps): JSX.Element => {
       }
     }
     loadLikesStoraged()
-  }, [])
+  }, [username])
 
   useEffect(() => {
     async function updateLikesStoraged() {
       try {
-        await AsyncStorage.setItem(LIKES_STORAGE_KEY, JSON.stringify(likes))
+        await AsyncStorage.setItem(
+          `${LIKES_STORAGE_KEY}-${username}`,
+          JSON.stringify(likes),
+        )
       } catch (error) {
         const { message } = error as ErrorResponse
         Toast.show({
@@ -72,7 +95,7 @@ const LikeProvider = ({ children }: LikesProviderProps): JSX.Element => {
       }
     }
     updateLikesStoraged()
-  }, [likes])
+  }, [likes, username])
 
   const value = useMemo(() => {
     return {
@@ -95,4 +118,13 @@ function useLikes(): LikesContextData {
   return context
 }
 
-export { useLikes, LikeProvider }
+const mapStateToProps = ({ authentication }: ApplicationState) => ({
+  authentication,
+})
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(AuthenticationActions, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(LikeProvider)
+
+export { useLikes }
