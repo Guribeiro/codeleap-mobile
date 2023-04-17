@@ -30,6 +30,7 @@ Explore your feed and create posts about what you're thinking about
 🚩 Update your own posts\
 🚩 Delete your own posts\
 🚩 Light and Dark theme\
+🚩 Update avatar
 
 ## 🚀 Technologies ##
 
