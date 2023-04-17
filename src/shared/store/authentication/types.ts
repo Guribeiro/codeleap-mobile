@@ -11,17 +11,27 @@ export enum AuthenticationTypes {
   LOAD_STORAGED_SESSION = `LOAD_STORAGED_SESSION`,
   LOAD_STORAGED_SESSION_SUCCESS = `LOAD_STORAGED_SESSION_SUCCESS`,
   LOAD_STORAGED_SESSION_FAILURE = `LOAD_STORAGED_SESSION_FAILURE`,
+
+  UPDATE_AVATAR_REQUEST = `UPDATE_AVATAR_REQUEST`,
+  UPDATE_AVATAR_REQUEST_SUCCESS = `UPDATE_AVATAR_REQUEST_SUCCESS`,
+  UPDATE_AVATAR_REQUEST_FAILURE = `UPDATE_AVATAR_REQUEST_FAILURE`,
 }
 
 export interface LoginRequestPayload {
   username: string
 }
 
-export interface User {
+export interface Authentication {
+  username: string
+  avatar: string
+}
+
+export interface UpdateAvatarRequestPayload {
+  image: string
   username: string
 }
 
-export interface Authentication {
+export interface LoadStoragedAvatarPayload {
   username: string
 }
 

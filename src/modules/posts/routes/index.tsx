@@ -28,7 +28,7 @@ const PostsRoutes = (): JSX.Element => {
         screenOptions={{
           headerShown: false,
           contentStyle: {
-            backgroundColor: theme.palette.colors.background,
+            backgroundColor: theme.palette.colors.primary,
           },
         }}
       >

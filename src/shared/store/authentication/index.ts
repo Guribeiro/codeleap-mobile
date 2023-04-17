@@ -14,6 +14,10 @@ const {
   LOGOUT_REQUEST,
   LOGOUT_REQUEST_FAILURE,
   LOGOUT_REQUEST_SUCCESS,
+
+  UPDATE_AVATAR_REQUEST,
+  UPDATE_AVATAR_REQUEST_FAILURE,
+  UPDATE_AVATAR_REQUEST_SUCCESS,
 } = AuthenticationTypes
 
 const INITIAL_STATE: AuthenticationState = {
@@ -44,6 +48,16 @@ const reducer: Reducer<AuthenticationState, AuthenticationAction> = (
       return { ...state, loading: false, error: true }
     case LOGOUT_REQUEST_SUCCESS:
       return { loading: false, error: false, data: {} as Authentication }
+    case UPDATE_AVATAR_REQUEST:
+      return { ...state, loading: true, error: false }
+    case UPDATE_AVATAR_REQUEST_FAILURE:
+      return { ...state, loading: false, error: true }
+    case UPDATE_AVATAR_REQUEST_SUCCESS:
+      return {
+        loading: false,
+        error: false,
+        data: { ...state.data, avatar: action.payload.data },
+      }
     default:
       return state
   }
