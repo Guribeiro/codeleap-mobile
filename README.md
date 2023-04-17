@@ -62,7 +62,7 @@ $ yarn
 $ npx expo start
 ```
 
-The app will starts on the expo go app or you can emulate it o your phone ou Android studio
+The app will starts on the expo go app or you can emulate it on your phone ou Android studio
 
 ## :memo: License ##
 
